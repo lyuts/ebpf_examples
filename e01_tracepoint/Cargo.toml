@@ -1,0 +1,3 @@
+[workspace]
+resolver = "2"
+members = ["xtask", "e01_tracepoint", "e01_tracepoint-common"]
