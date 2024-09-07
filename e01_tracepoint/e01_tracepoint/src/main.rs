@@ -1,7 +1,7 @@
 use aya::programs::TracePoint;
 use aya::{include_bytes_aligned, Bpf};
 use aya_log::BpfLogger;
-use log::{info, warn, debug};
+use log::{debug, info, warn};
 use tokio::signal;
 
 #[tokio::main]
@@ -38,6 +38,8 @@ async fn main() -> Result<(), anyhow::Error> {
     let program: &mut TracePoint = bpf.program_mut("e01_tracepoint").unwrap().try_into()?;
     program.load()?;
     program.attach("net", "net_dev_queue")?;
+    program.attach("net", "netif_rx")?;
+    program.attach("net", "netif_receive_skb")?;
 
     info!("Waiting for Ctrl-C...");
     signal::ctrl_c().await?;
