@@ -1,0 +1,3 @@
+[workspace]
+resolver = "2"
+members = ["xtask", "e03_tp_btf", "e03_tp_btf-common"]
