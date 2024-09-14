@@ -49,6 +49,8 @@ struct bpf_raw_tracepoint_args {
 };
 ```
 
+Useful reference: https://github.com/libbpf/libbpf/blob/master/src/libbpf.c#L6684-L6714 maps a program type to the type of the argument it is getting.
+
 To figure out what these `args` point to we need to look at the definition of the trace event:
 
 ```bash
