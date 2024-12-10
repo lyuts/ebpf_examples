@@ -1,5 +1,6 @@
 mod build_ebpf;
 mod build;
+mod kprobe_test;
 mod run;
 
 use std::process::exit;
@@ -17,6 +18,7 @@ enum Command {
     BuildEbpf(build_ebpf::Options),
     Build(build::Options),
     Run(run::Options),
+    Test(kprobe_test::Options),
 }
 
 fn main() {
@@ -27,6 +29,7 @@ fn main() {
         BuildEbpf(opts) => build_ebpf::build_ebpf(opts),
         Run(opts) => run::run(opts),
         Build(opts) => build::build(opts),
+        Test(opts) => kprobe_test::run(opts),
     };
 
     if let Err(e) = ret {

@@ -37,7 +37,7 @@ async fn main() -> Result<(), anyhow::Error> {
     }
     let program: &mut KProbe = bpf.program_mut("e04_kprobe").unwrap().try_into()?;
     program.load()?;
-    program.attach("try_to_wake_up", 0)?;
+    program.attach("netdev_get_name", 0)?;
 
     info!("Waiting for Ctrl-C...");
     signal::ctrl_c().await?;
