@@ -1,0 +1,17 @@
+[package]
+name = "e14_xdp_firewall-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e14_xdp_firewall-common = { path = "../e14_xdp_firewall-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e14_xdp_firewall"
+path = "src/main.rs"

@@ -1,0 +1,17 @@
+[package]
+name = "e17_cgroup_sysctl-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e17_cgroup_sysctl-common = { path = "../e17_cgroup_sysctl-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e17_cgroup_sysctl"
+path = "src/main.rs"

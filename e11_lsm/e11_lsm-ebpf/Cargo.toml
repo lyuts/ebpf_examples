@@ -1,0 +1,17 @@
+[package]
+name = "e11_lsm-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e11_lsm-common = { path = "../e11_lsm-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e11_lsm"
+path = "src/main.rs"

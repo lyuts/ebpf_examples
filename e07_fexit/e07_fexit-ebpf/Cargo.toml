@@ -1,0 +1,17 @@
+[package]
+name = "e07_fexit-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e07_fexit-common = { path = "../e07_fexit-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e07_fexit"
+path = "src/main.rs"

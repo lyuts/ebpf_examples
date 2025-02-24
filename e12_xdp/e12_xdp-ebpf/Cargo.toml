@@ -1,0 +1,17 @@
+[package]
+name = "e12_xdp-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e12_xdp-common = { path = "../e12_xdp-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e12_xdp"
+path = "src/main.rs"

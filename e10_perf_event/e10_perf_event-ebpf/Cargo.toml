@@ -1,0 +1,17 @@
+[package]
+name = "e10_perf_event-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e10_perf_event-common = { path = "../e10_perf_event-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e10_perf_event"
+path = "src/main.rs"

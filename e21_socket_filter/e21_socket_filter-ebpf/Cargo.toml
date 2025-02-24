@@ -1,0 +1,17 @@
+[package]
+name = "e21_socket_filter-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e21_socket_filter-common = { path = "../e21_socket_filter-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e21_socket_filter"
+path = "src/main.rs"

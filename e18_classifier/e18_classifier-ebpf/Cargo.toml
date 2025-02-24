@@ -1,0 +1,17 @@
+[package]
+name = "e18_classifier-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e18_classifier-common = { path = "../e18_classifier-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e18_classifier"
+path = "src/main.rs"

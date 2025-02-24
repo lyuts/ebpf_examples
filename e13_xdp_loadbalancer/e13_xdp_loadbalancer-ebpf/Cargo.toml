@@ -1,0 +1,17 @@
+[package]
+name = "e13_xdp_loadbalancer-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e13_xdp_loadbalancer-common = { path = "../e13_xdp_loadbalancer-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e13_xdp_loadbalancer"
+path = "src/main.rs"

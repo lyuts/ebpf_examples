@@ -1,0 +1,17 @@
+[package]
+name = "e05_kretprobe-ebpf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+e05_kretprobe-common = { path = "../e05_kretprobe-common" }
+
+aya-ebpf = { workspace = true }
+aya-log-ebpf = { workspace = true }
+
+[build-dependencies]
+which = { workspace = true }
+
+[[bin]]
+name = "e05_kretprobe"
+path = "src/main.rs"
