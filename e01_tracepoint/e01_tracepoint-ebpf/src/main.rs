@@ -5,8 +5,8 @@ mod bindings;
 use bindings::{trace_entry, trace_event_raw_net_dev_template};
 
 use aya_ebpf::{
-    helpers::bpf_probe_read_kernel_str_bytes, macros::tracepoint, programs::TracePointContext,
-    EbpfContext,
+    EbpfContext, helpers::bpf_probe_read_kernel_str_bytes, macros::tracepoint,
+    programs::TracePointContext,
 };
 use aya_log_ebpf::{debug, info};
 
@@ -24,16 +24,17 @@ fn try_e01_tracepoint(ctx: TracePointContext) -> Result<u32, u32> {
     // Every trace event has trace_entry as its header, so we can peek into it and have conditional
     // logic based on what we discover, e.g. handle net_dev_queue and netif_receive_skb
     // differently, we just need to inspect the `type_` field.
-    let trace_entry_header: trace_entry = unsafe {
-        ctx.read_at::<trace_entry>(0).unwrap()
-    };
+    let trace_entry_header: trace_entry =
+        unsafe { ctx.read_at::<trace_entry>(0).map_err(|e| e as u32)? };
 
-    debug!(&ctx, "trace_entry: type = {}, flags = {}, preempt_count = {}, pid = {}",
-           trace_entry_header.type_,
-           trace_entry_header.flags,
-           trace_entry_header.preempt_count,
-           trace_entry_header.pid,
-           );
+    debug!(
+        &ctx,
+        "trace_entry: type = {}, flags = {}, preempt_count = {}, pid = {}",
+        trace_entry_header.type_,
+        trace_entry_header.flags,
+        trace_entry_header.preempt_count,
+        trace_entry_header.pid,
+    );
 
     let event: trace_event_raw_net_dev_template = unsafe {
         match ctx.read_at::<trace_event_raw_net_dev_template>(0) {
@@ -55,7 +56,7 @@ fn try_e01_tracepoint(ctx: TracePointContext) -> Result<u32, u32> {
         let len = (event.__data_loc_name >> 16 & 0xffff) as usize - 1; // -1 is for null-termination.
         let bytes =
             bpf_probe_read_kernel_str_bytes(ctx.as_ptr().add(offset) as *const u8, &mut buf)
-                .unwrap();
+                .map_err(|e| e as u32)?;
         let devname = core::str::from_utf8_unchecked(bytes);
         info!(&ctx, "tracepoint event: devname = {}", devname);
     }
@@ -63,7 +64,8 @@ fn try_e01_tracepoint(ctx: TracePointContext) -> Result<u32, u32> {
     Ok(0)
 }
 
+#[cfg(not(test))]
 #[panic_handler]
 fn panic(_info: &core::panic::PanicInfo) -> ! {
-    unsafe { core::hint::unreachable_unchecked() }
+    loop {}
 }

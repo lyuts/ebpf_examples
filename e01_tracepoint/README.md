@@ -22,13 +22,13 @@ cargo build
 ## Build eBPF and Userspace
 
 ```bash
-cargo xtask build
+cargo build
 ```
 
 ## Run
 
 ```bash
-RUST_LOG=info cargo xtask run
+RUST_LOG=info cargo run --config 'target."cfg(all())".runner="sudo -E"'
 ```
 
 In another terminal try inspecting the the list of eBPF programs. You should see yours running, e.g.:
